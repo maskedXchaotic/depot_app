@@ -1,0 +1,14 @@
+evelopment:
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :user_name: udaynayakgkv
+  :password: "iexiqczhdzmavbpf"
+  :enable_starttls_auto: true
+production:
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :user_name: udaynayakgkv
+  :password: "iexiqczhdzmavbpf"
+  :enable_starttls_auto: true
