@@ -11,5 +11,13 @@ class CreateProducts < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    # Irreverise migration
+    # uncomment to run it
+    # execute <<~SQL
+    #   ALTER TABLE products
+    #     ADD CONSTRAINT discount_price_check
+    #       CHECK (discount_price <= price);
+    # SQL
   end
 end
