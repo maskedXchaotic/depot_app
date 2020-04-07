@@ -5,7 +5,7 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.text :description
       t.string :image_url
       t.decimal :price, precision: 8, scale: 2
-      t.boolean :enabled, :default => false
+      t.boolean :enabled, default: false
       t.decimal :discount_price, precision: 8, scale: 2
       t.string :permalink
 
