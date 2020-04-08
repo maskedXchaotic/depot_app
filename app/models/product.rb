@@ -16,9 +16,10 @@ class Product < ApplicationRecord
   }
   validates :title, length: {minimum: 10}
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }, allow_blank: true
-  validates :permalink, uniqueness: true, format: {with: /\A[a-zA-Z0-9 ]+\z/}, length: {minimum:3}
-  validate :description_word_check
-  validates :image_url, url:true
+  validates :permalink, uniqueness: true, format: {with: /\A[a-zA-Z0-9\- ]+\z/}
+
+  validate :description_word_length
+  validate :permalink_word_length
 
   validates :price, numericality: {greater_than_or_equal_to: :discount_price}
   # validate :price_greater_than_discount_price
@@ -32,22 +33,16 @@ class Product < ApplicationRecord
         throw :abort
       end
     end
-
-    def description_word_check
+    
+    def description_word_length
       word_length = description.split.length
-      if word_length < 5
-        errors.add(:base, 'Descrription Word length must be greater than 5')
-      end
-
-      if word_length > 10
-        errors.add(:base, 'Descrription Word length cannot be greater than 10')
-      end
+      errors.add(:base, 'description must have at least 5 words') if word_length < 5
+      errors.add(:base, 'description must have at most 10 words') if word_length > 10
     end
-
-    def price_greater_than_discount_price
-      if price < discount_price
-        errors.add(:base, 'Price should be greater than or equal to discount price')
-      end
+    
+    def permalink_word_length
+      word_length = permalink.split('-').length
+      errors.add(:base, "permalink must have at least 3 words seperated by '-'") if word_length < 3
     end
 
 end
