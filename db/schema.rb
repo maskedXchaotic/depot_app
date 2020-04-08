@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2020_04_01_103203) do
   end
 
   create_table "carts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "line_items_count", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -84,6 +85,9 @@ ActiveRecord::Schema.define(version: 2020_04_01_103203) do
     t.text "description"
     t.string "image_url"
     t.decimal "price", precision: 8, scale: 2
+    t.boolean "enabled", default: false
+    t.decimal "discount_price", precision: 8, scale: 2
+    t.string "permalink"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -101,6 +105,7 @@ ActiveRecord::Schema.define(version: 2020_04_01_103203) do
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "password_digest"
+    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
