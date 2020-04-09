@@ -15,8 +15,14 @@ class Product < ApplicationRecord
     message: 'must be a URL for GIF, JPG or PNG image.'
   }
   validates :title, length: {minimum: 10}
-  validates :price, numericality: { greater_than_or_equal_to: 0.01 }
+  validates :permalink, uniqueness: true, format: {with: /\A[a-zA-Z0-9\- ]+\z/}
 
+  validates_length_of :words_in_description, minimum: 5, maximum: 10
+  validates_length_of :words_in_permalink, minimum: 3
+
+  validates :price, numericality: {greater_than_or_equal_to: :discount_price}
+  validates :discount_price, numericality: {greater_than_or_equal_to: 0.01}, allow_blank:true
+  # validate :price_greater_than_discount_price
 
   private
 
@@ -27,4 +33,13 @@ class Product < ApplicationRecord
         throw :abort
       end
     end
+    
+    def words_in_description
+      description.scan(/\w+/)
+    end
+    
+    def words_in_permalink
+      permalink.split('-')
+    end
+
 end
