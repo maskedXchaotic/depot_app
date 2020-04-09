@@ -24,6 +24,7 @@ class Product < ApplicationRecord
   validates :price, numericality: {greater_than_or_equal_to: :discount_price}
   # validate :price_greater_than_discount_price
 
+  before_create :set_title, :set_discount_price
   private
 
     # ensure that there are no line items referencing this product
@@ -40,6 +41,14 @@ class Product < ApplicationRecord
     
     def words_in_permalink
       permalink.split('-')
+    end
+
+    def set_title
+      self.title = 'abc' if title.blank?
+    end
+
+    def set_discount_price
+      self.discount_price = self.price if discount_price.blank?
     end
 
 end
