@@ -4,7 +4,7 @@ class User < ApplicationRecord
   after_destroy :enusre_an_admin_remains
   validates :email, uniqueness: {case_sensitive: false}, format: {with: /.+@.+\..+/}
 
-  after_create :send_welcome_mail
+  after_commit :send_welcome_mail, only: [:create]
   before_destroy :ensure_is_not_admin
   before_update :ensure_is_not_admin
   
