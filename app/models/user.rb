@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_secure_password
   after_destroy :enusre_an_admin_remains
   validates :email, uniqueness: {case_sensitive: false}, format: {with: /.+@.+\..+/}
+  has_many :orders
 
   class Error < StandardError
   end
