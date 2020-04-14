@@ -6,6 +6,7 @@ class Product < ApplicationRecord
 
   before_destroy :ensure_not_referenced_by_any_line_item
 
+  scope :enabled, -> { where(enabled:true) }
   #...
 
   validates :title, :description, :image_url, presence: true
@@ -41,6 +42,14 @@ class Product < ApplicationRecord
     
     def words_in_permalink
       permalink.split('-')
+    end
+
+    def self.present_in_atleast_one_lineitem
+      self.joins(:line_items).distinct
+    end
+
+    def self.titles_in_array
+      self.present_in_atleast_one_lineitem.pluck(:title)
     end
 
 end
