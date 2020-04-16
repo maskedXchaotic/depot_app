@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  sub_categories_count: 1
+  category: 
 
 two:
   name: MyString
-  sub_categories_count: 1
+  category: 

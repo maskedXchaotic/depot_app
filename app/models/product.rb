@@ -1,11 +1,11 @@
 
 class Product < ApplicationRecord
-  belongs_to :categoryable, polymorphic: true
+  belongs_to :category, counter_cache: true
   has_many :orders , through: :line_items
   has_many :line_items, dependent: :restrict_with_error
   has_many :carts, through: :line_items
 
-  after_commit :set_category_product_count
+  after_commit :set_root_category_product_count
 
   before_destroy :ensure_not_referenced_by_any_line_item
 
@@ -28,6 +28,7 @@ class Product < ApplicationRecord
   validates :price, numericality: {greater_than_or_equal_to: :discount_price}
   validates :discount_price, numericality: {greater_than_or_equal_to: 0.01}, allow_blank:true
   # validate :price_greater_than_discount_price
+  
 
   private
 
@@ -55,14 +56,12 @@ class Product < ApplicationRecord
       self.present_in_atleast_one_lineitem.pluck(:title)
     end
 
-    def set_category_product_count
-      if self.categoryable.instance_of? Category
-        category = self.categoryable
-      elsif self.categoryable.instance_of? SubCategory
-        category = self.categoryable.category
+    def set_root_category_product_count
+      if self.category.sub_category?
+        root_category = self.category.parent
+        root_category.products_count = root_category.products.count + root_category.sub_categories.inject(0) { |sum,sub_category| sum += sub_category.products.count}
+        root_category.save
       end
-      category.products_count = category.products.count + category.sub_categories.inject(0) {|a,b| a+= b.products.count}
-      category.save
     end
 
 end
