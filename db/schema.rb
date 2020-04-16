@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_11_071527) do
+ActiveRecord::Schema.define(version: 2020_04_15_125139) do
 
   create_table "action_mailbox_inbound_emails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -58,6 +58,13 @@ ActiveRecord::Schema.define(version: 2020_04_11_071527) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.integer "products_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "cart_id"
@@ -79,6 +86,7 @@ ActiveRecord::Schema.define(version: 2020_04_11_071527) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -91,6 +99,17 @@ ActiveRecord::Schema.define(version: 2020_04_11_071527) do
     t.string "permalink"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "categoryable_type"
+    t.bigint "categoryable_id"
+    t.index ["categoryable_type", "categoryable_id"], name: "index_products_on_categoryable_type_and_categoryable_id"
+  end
+
+  create_table "sub_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_sub_categories_on_category_id"
   end
 
   create_table "support_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -115,5 +134,7 @@ ActiveRecord::Schema.define(version: 2020_04_11_071527) do
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
+  add_foreign_key "orders", "users"
+  add_foreign_key "sub_categories", "categories"
   add_foreign_key "support_requests", "orders"
 end
