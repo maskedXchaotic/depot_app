@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_04_16_105957) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "products_count"
+    t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
   create_table "line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
