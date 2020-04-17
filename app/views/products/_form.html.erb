@@ -47,6 +47,11 @@
     <%= form.text_field :permalink %>
   </div>
 
+  <div class="field">
+    <%= form.label :category %>
+     <%= form.select :category_id, @categories_list, prompt: 'Select One' %>
+  </div>
+  
   <div class="actions">
     <%= form.submit %>
   </div>

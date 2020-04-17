@@ -4,6 +4,7 @@ class User < ApplicationRecord
   after_destroy :enusre_an_admin_remains
   validates :email, uniqueness: {case_sensitive: false}, format: {with: /.+@.+\..+/}
   has_many :orders, dependent: :restrict_with_error
+  has_one :address
 
   class Error < StandardError
   end
