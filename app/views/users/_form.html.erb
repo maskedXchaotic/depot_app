@@ -34,25 +34,25 @@
       <%= form.text_field :email %>
     </div>
 
-    <%= fields_for :address, @user.address do |permission_fields| %>
+    <%= form.fields_for :address do |address_fields| %>
       <div class="field">
-        <%= form.label :city%>
-        <%= form.text_field :city %>
+        <%= address_fields.label :city%>
+        <%= address_fields.text_field :city %>
       </div>
       
       <div class="field">
-        <%= form.label :state%>
-        <%= form.text_field :state %>
+        <%= address_fields.label :state%>
+        <%= address_fields.text_field :state %>
       </div>
 
       <div class="field">
-        <%= form.label :country%>
-        <%= form.text_field :country %>
+        <%= address_fields.label :country%>
+        <%= address_fields.text_field :country %>
       </div>
 
       <div class="field">
-        <%= form.label :pincode%>
-        <%= form.text_field :pincode %>
+        <%= address_fields.label :pincode%>
+        <%= address_fields.text_field :pincode %>
       </div>
 
     <% end %>

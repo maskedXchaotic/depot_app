@@ -5,6 +5,9 @@ class Product < ApplicationRecord
   has_many :line_items, dependent: :restrict_with_error
   has_many :carts, through: :line_items
 
+  has_many_attached :product_images
+  validates :product_images, limit: { min: 1, max: 3 }
+
   after_commit :set_root_category_product_count
 
   before_destroy :ensure_not_referenced_by_any_line_item

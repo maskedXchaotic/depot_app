@@ -1,0 +1,7 @@
+<h1>Myorders layout renderer</h1>
+<% if @orders %>
+<h2>Orders</h2>
+<% elsif @line_items %>
+<h2>Line Items</h2>
+<% end %>
+<%= yield %>
