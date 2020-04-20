@@ -1,16 +1,11 @@
-<h1>Welcome</h1>
-<p>
-  It's <%= Time.now %>.
-  We have <%= pluralize(@total_orders, "order") %>.
+<%= form_with scope: :admin, method: :get, url: admin_reports_path, local: true do |f| %>
+  <%= f.date_field :from %>
+  <%= f.date_field :to %>
+  <%= f.submit :filter %>
+<% end %>
+<div>
+  <p>
+  We have <%= pluralize(@orders.count, "order") %> since <%= pluralize(@days, 'days') %> ago.
 </p>
-<h3>categories</h3>
-<ul>
-  <% @categories.each do |category| %>
-    <li><%= category.name %></li>
-      <ul>
-        <% category.sub_categories.each do |sub_category| %>
-          <li><%= sub_category.name %></li>
-        <% end %>
-      </ul>
-  <% end %>
-</ul>
+<p><%= @from %></p>
+</div>
