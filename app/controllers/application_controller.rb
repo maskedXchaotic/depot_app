@@ -9,6 +9,9 @@
 class ApplicationController < ActionController::Base
   before_action :authorize
   before_action :set_i18n_locale_from_params
+  before_action :check_last_activity
+  before_action :set_counter, -> { @request_start_time = Time.now }
+  after_action -> { response.headers["x-responded-in"] = Time.now - @request_start_time }
   protected
     def authorize
       unless User.find_by(id: session[:user_id])
@@ -26,4 +29,31 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+
+    def set_counter
+      if(session[:user_id])
+        user_counter = Counter.find_by(user_id:session[:user_id])
+        user_counter.count += 1
+        @counter = user_counter.count
+        user_counter.save
+      end
+    end
+    
+    def check_last_activity
+      if(session[:user_id])
+        user = User.find(session[:user_id])
+        user.last_activity_time ||= Time.now
+        if Time.now - user.last_activity_time > 300
+          redirect_to sessions_destroy_path, notice: 'Session Expired after 5 mimnutes of activity'
+        else
+          user.last_activity_time = Time.now
+          user.save
+        end
+      end
+    end
+
+    def set_executed_in_time_header
+      yield
+    end
+
 end

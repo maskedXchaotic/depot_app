@@ -1,1 +1,9 @@
-<div>Hello</div>
+<%= form_with scope: :admin, method: :get, url: admin_reports_path, local: true do |f| %>
+  <%= f.date_field :from %>
+  <%= f.date_field :to %>
+  <%= f.submit :filter %>
+<% end %>
+<div>
+  <strong>Orders:</strong>
+  <%= render file: 'orders/index' %>
+</div>

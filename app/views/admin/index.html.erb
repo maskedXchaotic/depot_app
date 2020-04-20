@@ -4,8 +4,6 @@
   <%= f.submit :filter %>
 <% end %>
 <div>
-  <p>
-  We have <%= pluralize(@orders.count, "order") %> since <%= pluralize(@days, 'days') %> ago.
-</p>
-<p><%= @from %></p>
+  <strong>Orders:</strong>
+  <%= render file: 'orders/index' %>
 </div>
