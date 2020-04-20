@@ -29,9 +29,13 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @product.category.name %>
+  <%= @product.category_name %>
 </p>
 
-<%= javascript_pack_tag "slider" %>
+<% content_for :js_script do %>
+  <%= javascript_pack_tag "slider" %>
+<% end %>
+
+<%= content_for  :js_script %>
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

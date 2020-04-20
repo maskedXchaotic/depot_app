@@ -28,38 +28,38 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
-    @categories_list = Category.all.collect { |c| [ c.name, c.id ] }
+    @categories_list = Category.list
   end
   
   # GET /products/1/edit
   def edit
-    @categories_list = Category.all.collect { |c| [ c.name, c.id ] }
+    @categories_list = Category.list
   end
   
   # POST /products
   # POST /products.json
   def create
     @product = Product.new(product_params)
-    @categories_list = Category.all.collect { |c| [ c.name, c.id ] }
+    @categories_list = Category.list
     
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product,
-          notice: 'Product was successfully created.' }
-          format.json { render :show, status: :created,
-          location: @product }
-        else
-          format.html { render :new }
-          format.json { render json: @product.errors,
-          status: :unprocessable_entity }
-        end
+        notice: 'Product was successfully created.' }
+        format.json { render :show, status: :created,
+        location: @product }
+      else
+        format.html { render :new }
+        format.json { render json: @product.errors,
+        status: :unprocessable_entity }
       end
     end
-    
-    # PATCH/PUT /products/1
-    # PATCH/PUT /products/1.json
+  end
+  
+  # PATCH/PUT /products/1
+  # PATCH/PUT /products/1.json
   def update
-    @categories_list = Category.all.collect { |c| [ c.name, c.id ] }
+    @categories_list = Category.list
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product,
