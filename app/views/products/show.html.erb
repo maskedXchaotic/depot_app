@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<div id='slider'>
+  <% @product.product_images.each do |product_image| %>
+    <div data-slideshow="true"><%= image_tag  url_for(product_image) %></div>
+  <% end %>
+</div>
+
+
 <p>
   <strong>Title:</strong>
   <%= @product.title %>
@@ -20,5 +27,15 @@
   <%= @product.price %>
 </p>
 
+<p>
+  <strong>Category:</strong>
+  <%= @product.category_name %>
+</p>
+
+<% content_for :js_script do %>
+  <%= javascript_pack_tag "slider" %>
+<% end %>
+
+<%= content_for  :js_script %>
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

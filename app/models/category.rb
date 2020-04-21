@@ -19,4 +19,8 @@ class Category < ApplicationRecord
       throw :abort
     end
   end
+
+  def self.list
+    self.all.collect { |c| [ c.name, c.id ] }
+  end
 end

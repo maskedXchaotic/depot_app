@@ -51,6 +51,8 @@
     <%= form.label :category %>
      <%= form.select :category_id, @categories_list, prompt: 'Select One' %>
   </div>
+
+  <%= form.file_field :product_images, multiple: true %>
   
   <div class="actions">
     <%= form.submit %>

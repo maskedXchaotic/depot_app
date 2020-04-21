@@ -1,9 +1,13 @@
 
 class Product < ApplicationRecord
+  delegate :name, to: :category, prefix: :category
   belongs_to :category, counter_cache: true
   has_many :orders , through: :line_items
   has_many :line_items, dependent: :restrict_with_error
   has_many :carts, through: :line_items
+
+  has_many_attached :product_images
+  validates :product_images, limit: { min: 1, max: 3 }
 
   after_commit :set_root_category_product_count
 
@@ -30,6 +34,9 @@ class Product < ApplicationRecord
   # validate :price_greater_than_discount_price
   
 
+  def cover_image
+    product_images.first
+  end
   private
 
     # ensure that there are no line items referencing this product

@@ -4,6 +4,17 @@
   <strong>Name:</strong>
   <%= @user.name %>
 </p>
+<p>
+  <strong>Address:</strong><br>
+  <strong>City:</strong>
+  <%= @user.address.city %>
+  <strong>State:</strong>
+  <%= @user.address.state %>
+  <strong>Country:</strong>
+  <%= @user.address.country %>
+  <strong>Pincode:</strong>
+  <%= @user.address.pincode %>
+</p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
