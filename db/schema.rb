@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_041909) do
+ActiveRecord::Schema.define(version: 2020_04_21_102952) do
 
   create_table "action_mailbox_inbound_emails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -80,7 +80,8 @@ ActiveRecord::Schema.define(version: 2020_04_21_041909) do
 
   create_table "counters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "count"
+    t.integer "count", default:0
+    t.string "url"
     t.index ["user_id"], name: "index_counters_on_user_id"
   end
 

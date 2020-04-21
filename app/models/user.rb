@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :orders, dependent: :restrict_with_error
   has_one :address
   accepts_nested_attributes_for :address, reject_if: :all_blank, update_only: true, allow_destroy: true
-  has_one :counter
+  has_many :counters, dependent: :destroy
 
   def address
     super || build_address
@@ -14,6 +14,11 @@ class User < ApplicationRecord
 
   def admin?
     role == 'admin'
+  end
+
+  def set_last_activity
+    self.last_activity_time = Time.current
+    self.save
   end
 
   class Error < StandardError
