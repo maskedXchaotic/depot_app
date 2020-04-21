@@ -51,9 +51,4 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-
-    def set_executed_in_time_header
-      yield
-    end
-
 end
