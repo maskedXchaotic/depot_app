@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     resources :carts
     root 'store#index', via: :all
   end
-  resources :admin do
+  namespace :admin do
     resources :reports
     resources :categories
   end
