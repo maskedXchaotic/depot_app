@@ -59,3 +59,8 @@ en:
         expiration_date: "Expiry"
       purchase_order_pay_type:
         po_number: "PO #"
+  session:
+    create:
+      invalid_credentials: "Invalid user/password combination"
+    destroy:
+      logged_out: "Logged out."

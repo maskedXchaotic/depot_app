@@ -10,13 +10,13 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to admin_url
     else
-      redirect_to login_url, alert: "Invalid user/password combination"
+      redirect_to login_url, alert: t('.invalid_credentials')
     end
   end
   
   def destroy
     Counter.find_by(user_id:session[:user_id]).destroy_all
     session[:user_id] = nil
-    redirect_to store_index_url, notice: "Logged out."
+    redirect_to store_index_url, notice: t('.logged_out')
   end
 end
