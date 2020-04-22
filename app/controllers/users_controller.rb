@@ -61,6 +61,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def my_orders
+    redirect_to "/users/#{session[:user_id]}/orders"
+  end
+  
+  def my_items
+    redirect_to "/users/#{session[:user_id]}/line_items"
+  end
+
   rescue_from 'User::Error' do |exception|
     redirect_to users_url, notice: exception.message
   end
