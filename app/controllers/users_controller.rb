@@ -61,6 +61,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def my_orders
+    redirect_to user_orders_path(session[:user_id])
+  end
+  
+  def my_items
+    redirect_to user_line_items_path(session[:user_id])
+  end
+
   rescue_from 'User::Error' do |exception|
     redirect_to users_url, notice: exception.message
   end

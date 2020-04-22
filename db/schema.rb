@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_17_063706) do
+ActiveRecord::Schema.define(version: 2020_04_21_102952) do
 
   create_table "action_mailbox_inbound_emails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -78,6 +78,13 @@ ActiveRecord::Schema.define(version: 2020_04_17_063706) do
     t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
+  create_table "counters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "count", default:0
+    t.string "url"
+    t.index ["user_id"], name: "index_counters_on_user_id"
+  end
+
   create_table "line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "cart_id"
@@ -132,9 +139,12 @@ ActiveRecord::Schema.define(version: 2020_04_17_063706) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "role", default: "user"
+    t.time "last_activity_time"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "counters", "users"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "products"
