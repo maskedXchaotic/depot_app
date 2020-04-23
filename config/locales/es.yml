@@ -31,3 +31,6 @@ es:
   session:
     invalid_credentials: "Combinación de usuario / contraseña no válida"
     logged_out: "Desconectado"
+  order:
+    received:
+      subject: 'Confirmación de pedido enviado '

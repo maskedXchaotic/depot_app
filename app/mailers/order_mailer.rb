@@ -9,8 +9,8 @@ class OrderMailer < ApplicationMailer
   def received(order)
     @order = order
     @order.line_items.each do |line_item|
-      line_item.product.product_images[1..3].each do |product_image| 
-        attachments["#{line_item.product.title}_#{product_image.filename}"] = product_image.download
+      line_item.product.product_images.each.with_index(1) do |product_image, index| 
+        attachments["#{line_item.product.title}_#{index}_#{product_image.filename}"] = product_image.download
       end
     end
     I18n.with_locale(@order.user.lang) do
@@ -26,6 +26,6 @@ class OrderMailer < ApplicationMailer
   def shipped(order)
     @greeting = order
 
-    mail to: order.email , subject: 'Order Shipped Confirmation'
+    mail to: order.email , subject: t('.subject')
   end
 end
