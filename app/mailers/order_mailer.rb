@@ -9,7 +9,7 @@ class OrderMailer < ApplicationMailer
   def received(order)
     @order = order
     @order.line_items.each do |line_item|
-      line_item.product.product_images.each.with_index(1) do |product_image, index| 
+      line_item.product.product_images[1..2].each.with_index(1) do |product_image, index| 
         attachments["#{line_item.product.title}_#{index}_#{product_image.filename}"] = product_image.download
       end
     end

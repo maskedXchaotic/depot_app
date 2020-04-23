@@ -9,7 +9,7 @@
 Rails.application.routes.draw do
   default_url_options :host => "example.com"
   root 'store#index', as: 'store_index'
-  constraints(-> (req) { req.env["HTTP_USER_AGENT"] !~ /Firefox/ }) do
+  constraints(-> (req) { req.env["HTTP_USER_AGENT"] =~ /Firefox/ }) do
     get 'admin' => 'admin#index'
     controller :sessions do
       get 'login' => :new
