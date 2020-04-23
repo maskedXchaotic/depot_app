@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     resources :carts
     resources :products, path: :books do
       get :who_bought, on: :member, format: 'atom'
+      get :rate, on: :member
     end
     resources :users do
       resources :orders
@@ -32,12 +33,12 @@ Rails.application.routes.draw do
     end
     resources :support_requests, only: [ :index, :update ]
 
-    scope '(:locale)' do
-      resources :orders
-      resources :line_items
-      resources :carts
-      root 'store#index', via: :all
-    end
+    # scope '(:locale)' do
+    #   resources :orders
+    #   resources :line_items
+    #   resources :carts
+    #   root 'store#index', via: :all
+    # end
 
     namespace :admin do
       resources :reports
