@@ -45,7 +45,13 @@ class ProductsController < ApplicationController
     else
       Rating.create(user_id:session[:user_id], product_id: params[:id], value: product_params[:product_rating])
     end
-    redirect_to store_index_path
+
+    @rating = product_params[:product_rating]
+
+    respond_to do |format|
+      format.js
+    end
+    # redirect_to store_index_path
   end
   
   # POST /products

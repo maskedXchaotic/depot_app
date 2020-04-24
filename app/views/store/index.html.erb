@@ -14,13 +14,14 @@
           <p>
             <%= sanitize(product.description) %>
           </p>
-          <%= form_with(model: product, url: rate_product_path(product.id) ,local: true, method: :get) do |form| %>
+          <%= form_with(model: product, url: rate_product_path(product.id) ,remote: true, method: :get) do |form| %>
             <%= form.select :product_rating, [1,2,3,4,5], prompt: 'Select Rating' %>
             <%= form.submit "Rate" %>
           <% end %>
-          <div class="rating">
+          <div id="rating">
+            <br>
             <strong>Rating:</strong>
-            <%= product.average_rating %>/5
+            <p id='rating_value'><%= product.average_rating %>/5</p>
           </div>
           <div class="price">
             <%= number_to_currency(product.price) %>
