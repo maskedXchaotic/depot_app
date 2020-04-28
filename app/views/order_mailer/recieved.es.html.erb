@@ -1,0 +1,5 @@
+<h3>Dear <%= @Querida.name %></h3>
+Gracias por su reciente pedido de The Pragmatic Store.
+Usted ordenó los siguientes artículos:
+<%= render @order.line_items %>
+Le enviaremos un correo electrónico por separado cuando se envíe su pedido.

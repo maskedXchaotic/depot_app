@@ -3,7 +3,10 @@
 <% else %>
 <tr>
 <% end %>
-  <td class="quantity"><%= line_item.quantity %></td>
+  <td class="image">
+    <%= image_tag(url_for(line_item.product.cover_image), class: 'list_image') %>
+  </td>
   <td><%= line_item.product.title %></td>
+  <td class="quantity"><%= line_item.quantity %></td>
   <td class="price"><%= number_to_currency(line_item.total_price) %></td>
 </tr>

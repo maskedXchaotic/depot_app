@@ -35,6 +35,24 @@ class ProductsController < ApplicationController
   def edit
     @categories_list = Category.list
   end
+
+  def rate
+    # logger.info 'hello'
+    rating = Rating.find_by(user_id:session[:user_id], product_id: params[:id])
+    if rating
+      rating.value = product_params[:product_rating]
+      rating.save
+    else
+      Rating.create(user_id:session[:user_id], product_id: params[:id], value: product_params[:product_rating])
+    end
+
+    @rating = product_params[:product_rating]
+
+    respond_to do |format|
+      format.js
+    end
+    # redirect_to store_index_path
+  end
   
   # POST /products
   # POST /products.json
@@ -106,6 +124,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:title, :description, :image_url, :price, :enabled, :discount_price, :permalink,:category_id, product_images: [])
+      params.require(:product).permit(:title, :description, :image_url, :price, :enabled, :discount_price, :permalink,:category_id, :product_rating, product_images: [])
     end
 end

@@ -1,0 +1,20 @@
+<h3>Dear <%= @user.name %></h3>
+Your Orders
+<table>
+  <% @user.orders.each do |order| %>
+    <tr>
+      <th><%= order.id %></th>
+    </tr>
+    <tr>
+      <% order.line_items.each do |line_item| %>
+        <td class="image">
+          <%= image_tag attachments["#{line_item.product.title}_cover_image"].url %>
+        </td>
+        <td><%= line_item.product.title %></td>
+        <td class="quantity"><%= line_item.quantity %></td>
+        <td class="price"><%= number_to_currency(line_item.total_price) %></td>
+      <% end %>
+    </tr>
+    </tr>
+  <% end %>
+<table>

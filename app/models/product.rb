@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_many :orders , through: :line_items
   has_many :line_items, dependent: :restrict_with_error
   has_many :carts, through: :line_items
+  has_many :ratings
 
   has_many_attached :product_images
   validates :product_images, limit: { min: 1, max: 3 }
@@ -36,6 +37,10 @@ class Product < ApplicationRecord
 
   def cover_image
     product_images.first
+  end
+
+  def average_rating
+    self.ratings.average(:value)
   end
   private
 
@@ -70,5 +75,6 @@ class Product < ApplicationRecord
         root_category.save
       end
     end
+
 
 end

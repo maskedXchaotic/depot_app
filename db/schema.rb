@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_102952) do
+ActiveRecord::Schema.define(version: 2020_04_23_075416) do
 
   create_table "action_mailbox_inbound_emails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2020_04_21_102952) do
 
   create_table "counters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "count", default:0
+    t.integer "count", default: 0
     t.string "url"
     t.index ["user_id"], name: "index_counters_on_user_id"
   end
@@ -123,6 +123,14 @@ ActiveRecord::Schema.define(version: 2020_04_21_102952) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "ratings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "value"
+    t.index ["product_id"], name: "index_ratings_on_product_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
   create_table "support_requests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "email", comment: "Email of the submitter"
     t.string "subject", comment: "Subject of their support email"
@@ -141,6 +149,7 @@ ActiveRecord::Schema.define(version: 2020_04_21_102952) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "role", default: "user"
     t.time "last_activity_time"
+    t.string "lang", default: "en"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -150,5 +159,7 @@ ActiveRecord::Schema.define(version: 2020_04_21_102952) do
   add_foreign_key "line_items", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
+  add_foreign_key "ratings", "products"
+  add_foreign_key "ratings", "users"
   add_foreign_key "support_requests", "orders"
 end

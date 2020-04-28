@@ -28,3 +28,9 @@ es:
         expiration_date: "Expiración"
       purchase_order_pay_type:
         po_number: "Número"
+  session:
+    invalid_credentials: "Combinación de usuario / contraseña no válida"
+    logged_out: "Desconectado"
+  order:
+    received:
+      subject: 'Confirmación de pedido enviado '
